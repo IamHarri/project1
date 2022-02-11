@@ -33,7 +33,7 @@ def hello():
     app.logger.warn('This is a warning log message')
     app.logger.error('This is an error message')
     app.logger.critical('This is a critical message')
-    return "Hello World!"
+    return "Hello World!!"
 
 @app.route('/new_post', methods=['GET', 'POST'])
 @login_required
@@ -76,7 +76,7 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password..')
-            # app.logger.info('invalid login attempt')
+            app.logger.info('invalid login attempt')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
