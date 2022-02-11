@@ -27,6 +27,14 @@ def home():
         posts=posts
     )
 
+@app.route("/hello")
+def hello():
+    app.logger.info('This is an information log message')
+    app.logger.warn('This is a warning log message')
+    app.logger.error('This is an error message')
+    app.logger.critical('This is a critical message')
+    return "Hello World!"
+
 @app.route('/new_post', methods=['GET', 'POST'])
 @login_required
 def new_post():
@@ -67,7 +75,7 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
+            flash('Invalid username or password...')
             app.logger.info('invalid login attempt')
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
